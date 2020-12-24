@@ -1,0 +1,43 @@
+<html>
+<body>
+    <h1>Update Restaurant</h1>
+    <form action="/update" method="post">
+        <%if (rlist.photo != null) { %>
+            <div>
+                <% var text_image; %>
+                <% text_image = "data:image/" + rlist['photo mimetype'] + ";base64, " + rlist.photo; %>
+                <img src="<%= text_image %>""  />
+            </div>
+        <% } %>
+    Restaurant_id: <%= rlist.restaurant_id %><br>
+	Name: <input type="text" name="name" value="<%= rlist.name %>" required><br>
+    Borough: <input type="text" value="<%= rlist.borough %>" name="borough"><br>
+    Cuisine: <input type="text" value="<%= rlist.cuisine %>" name="cuisine"><br>
+    Street: <input type="text" value="<%= rlist.address.street %>" name="street"><br>
+    Building: <input type="text" value="<%= rlist.address.building %>" name="building"><br>
+    Zipcode: <input type="text" value="<%= rlist.address.zipcode %>" name="zipcode"><br>
+    Coord(lan,lon): <input type=number value=<%= rlist.address.coord?rlist.address.coord[0]:null %> step=any name="lat"><input type=number value=<%= rlist.address.coord?rlist.address.coord[1]:null %> step=any name="lon"><br>
+    Photo: <input type="file" name="photoupload"><br>
+    <input type="hidden" name="restaurant_id" value=<%= rlist.restaurant_id %> >
+    <input id="myimage" type="hidden" name="photo" value=<%= rlist.photo %> >
+    <br>
+    <input type="submit" value="Edit">
+    </form>
+    <form action="/back">
+        <input type="submit" value="Back" />
+    </form>
+</body>
+</html>
+
+<script>var input = document.querySelector('input[type=file]');
+    input.onchange = function () {
+      var file = input.files[0],
+      reader = new FileReader(); 
+      reader.onloadend = function () {
+        var b64 = reader.result.replace(/^data:.+;base64,/, '');
+        console.log(b64);
+        document.getElementById('myimage').value = b64;
+      };
+      reader.readAsDataURL(file);
+    };
+  </script>

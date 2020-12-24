@@ -1,0 +1,58 @@
+<html>
+<body>
+    <h1>Restaurant</h1>
+	<form>
+        <%if (rlist.photo != null) { %>
+            <div>
+                <% var text_image; %>
+                <% text_image = "data:image/" + rlist['photo mimetype'] + ";base64, " + rlist.photo; %>
+                <img src="<%= text_image %>""  />
+            </div>
+        <% } %>
+    Restaurant_id: <%= rlist.restaurant_id %><br>
+	Name: <%= rlist.name %><br>
+    Borough: <%= rlist.borough %><br>
+    Cuisine: <%= rlist.cuisine %><br>
+    Street: <%= rlist.address.street %><br>
+    Building: <%= rlist.address.building %><br>
+    Zipcode: <%= rlist.address.zipcode %><br>
+    Coord(lat,lon): [<%= rlist.address.coord[0] %>,<%= rlist.address.coord[1] %>]<br>
+    Owner: <%= rlist.owner %><br>
+    </form>
+    <table>
+        <tr>
+            <td>#</td><td>user</td><td>Score</td>
+          </tr>
+        <% for(var i=0; i < rlist.grades.length; i++) { %>
+           <tr>
+             <td><%= i+1 %></td><td><%= rlist.grades[i].user %></td><td><%= rlist.grades[i].score %></td>
+           </tr>
+        <% } %>
+    </table>
+    <form action="/rate" method="post">
+        <input type="hidden" name="restaurant_id" value=<%= rlist.restaurant_id %> >
+
+        <input type="number" min="1" max="10" value="0" name="rate"/>
+        <input type="submit" value="Rate" />
+    </form>
+    <%if (name == rlist.owner) { %>
+        <a href=<%= "/edit?id=" + rlist.restaurant_id %> >
+            Edit
+        </a>
+        <a href=<%= "/delrestaurant?id=" + rlist.restaurant_id %> >
+            Delete
+        </a>
+        
+    <% } %>
+    <%if (rlist.address.coord[0] && rlist.address.coord[1]) { %>
+        <a href=<%= "/gmap?lat="+rlist.address.coord[0]+"&lon="+rlist.address.coord[1]+"&title=" + rlist.name %> >
+            map
+        </a>
+
+        
+    <% } %>
+    <form action="/back">
+        <input type="submit" value="Back" />
+    </form>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<html>
+<body>
+    <h1>Restaurants</h1>
+    <h2>User: <%= name %></h2>
+    <br>
+    <form action="/new">
+        <input type="submit" value="Create" />
+    </form>
+    <form action="/">
+        Search by Name
+        <input type="text" name="name" />
+        <input type="submit" value="Search" />
+        <br />
+        Search by borough
+        <input type="text" name="borough" />
+        <input type="submit" value="Search" />
+        <br />
+        Search by Cuisine or Borough
+        <input type="text" name="boroughOrCuisine" />
+        <input type="submit" value="Search" />
+        <br />
+    </form>
+    <table>
+        <% for(var i=0; i < rlist.length; i++) { %>
+           <tr>
+             <td><a href="<%= "/restaurant?id=" + rlist[i].restaurant_id %>"><%= rlist[i].name %></a></td>
+           </tr>
+        <% } %>
+    </table>
+    <br>
+    <form action="/refresh">
+        <input type="submit" value="Refresh" />
+    </form>
+    <form action="/logout">
+        <input type="submit" value="Logout" />
+    </form>
+</body>
+</html>

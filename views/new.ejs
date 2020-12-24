@@ -1,0 +1,30 @@
+<html>
+<body>
+  <h1>Create New Restaurant</h1>
+	<form action="/create" method="post">
+		Name: <input type="text" name="name" required><br>
+    Borough: <input type="text" name="borough"><br>
+    Cuisine: <input type="text" name="cuisine"><br>
+    Street: <input type="text" name="street"><br>
+    Building: <input type="text" name="building"><br>
+    Zipcode: <input type="text" name="zipcode"><br>
+    Coord(lat,lon): <input type=number step=any name="lat"><input type=number step=any name="lon"><br>
+    Photo: <input type="file" name="photoupload"><br>
+    <input id="myimage" type="hidden" name="photo">
+		<input type="submit" value="Create">
+	</form>
+</body>
+</html>
+  
+<script>var input = document.querySelector('input[type=file]');
+  input.onchange = function () {
+    var file = input.files[0],
+    reader = new FileReader(); 
+    reader.onloadend = function () {
+      var b64 = reader.result.replace(/^data:.+;base64,/, '');
+      console.log(b64);
+      document.getElementById('myimage').value = b64;
+    };
+    reader.readAsDataURL(file);
+  };
+</script>
